@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contratados</title>
+</head>
+<body>
+  <h1>Lista de Contratados</h1>
+  <ul>
+    {% for pessoa in contratados %}
+    <li>{{ pessoa.nome}} - {{ pessoa.email }}
+        - {{ pessoa.documentos|length }} documento(s) enviado(s)
+    </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
