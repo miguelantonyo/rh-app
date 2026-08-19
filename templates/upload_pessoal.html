@@ -11,10 +11,14 @@
     <p>Envie o seu documento abaixo:</p>
 
     <form method="POST" enctype="multipart/form-data">
+        <select name="tipo_documento">
+            {% for tipo in tipos %}
+                <option value="{{ tipo }}">{{ tipo }}</option>
+            {% endfor %}
+        </select>
         <input type="file" name="documento">
         <button type="submit"> Enviar</button>
     </form>
     </div>
-
 </body>
 </html>

@@ -21,6 +21,8 @@ class Documento(db.Model):
     nome_arquivo = db.Column(db.String(200))
     contratado_id = db.Column(db.Integer, db.ForeignKey('contratado.id'))
 
+DOCUMENTOS_OBRIGATORIOS = ['RG', 'CPF', 'Comprovante de residencia', 'Título de Eleitor', 'PIS',
+                           'Conta Bancária', 'Reservista']
 PASTA_UPLOADS = 'uploads'
 os.makedirs(PASTA_UPLOADS, exist_ok=True)
 
@@ -38,16 +40,6 @@ def formulario():
 @app.route('/sobre')
 def sobre():
     return 'sobre'
-
-@app.route('/upload', methods=['GET', 'POST'])
-def uploads():
-    if request.method == 'POST':
-        arquivo = request.files.get('documento')
-        nome_seguro = secure_filename(arquivo.filename)
-        caminho = os.path.join(PASTA_UPLOADS, nome_seguro)
-        arquivo.save(caminho)
-        return f'Arquivo {nome_seguro} salvo com sucesso!'
-    return render_template('upload.html')
 
 @app.route('/cadastrar', methods=['GET', 'POST'])
 def cadastrar():
@@ -77,18 +69,18 @@ def upload_pessoal(token):
         return 'Link inválido ou não encontrado.', 404
 
     if request.method == 'POST':
-       arquivo = request.files.get('documento')
-       nome_seguro = secure_filename(arquivo.filename)
-       caminho = os.path.join(PASTA_UPLOADS, nome_seguro)
-       arquivo.save(caminho)
+        tipo_documento = request.form.get('tipo_documento')
+        arquivo = request.files.get('documento')
+        nome_seguro = secure_filename(arquivo.filename)
+        caminho = os.path.join(PASTA_UPLOADS, nome_seguro)
+        arquivo.save(caminho)
 
-       novo_documento = Documento(tipo='geral', nome_arquivo=nome_seguro, contratado_id=contratado.id)
-       db.session.add(novo_documento)
-       db.session.commit()
+        novo_documento = Documento(tipo=tipo_documento, nome_arquivo=nome_seguro, contratado_id=contratado.id)
+        db.session.add(novo_documento)
+        db.session.commit()
 
-       return f'Documento enviado com sucesso, {contratado.nome}!'
+        return f'Documento "{tipo_documento}" enviado com sucesso, {contratado.nome}!'
 
-    return render_template('upload_pessoal.html', contratado=contratado)
-
+    return render_template('upload_pessoal.html', contratado=contratado, tipos=DOCUMENTOS_OBRIGATORIOS)
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
