@@ -1,9 +1,49 @@
+:root{
+    --cor-primaria: #2563eb;
+    --cor-primaria-hover: #1d4ed8;
+    --cor-primaria-clara: #eff6ff;
+    --cor-fundo: #f8fafc;
+    --cor-texto: #1e293b;
+    --cor-texto-claro: #64748b;
+    --cor-sucesso: #10b981;
+    --cor-erro: #ef4444;
+    --cor-borda: #9ca3af;
+    --cinza--claro: #f1f5f9;
+    --cinza-medio: #e2e8f0;
+}
+
+.topo{
+    background-color: var(--cor-primaria);
+    color: white;
+    padding: 16px 20px;
+    margin: -40px -20px 40px -20px;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.subtitulo {
+    color: var(--cor-texto-claro);
+    font-size: 14px;
+    margin-top: -8px;
+    margin-bottom: 24px;
+}
+
+.badge {
+    display: inline-block;
+    background-color: var(--cinza--claro);
+    color: var(--cor-texto-claro);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f5f7;
+    background-color: var(--cor-fundo);
     margin: 0;
     padding: 40px;
-    color: #1f2937;
+    color: var(--cor-texto);
 }
 .container {
     max-width: 500px;
@@ -24,14 +64,14 @@ input[type="email"],
 input[type="file"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid #d1d5db;
+    border: 1px solid #9ca3af;
     border-radius: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
 }
 
 button{
-    background-color: #111827;
+    background-color: var(--cor-primaria);
     color: white;
     border: none;
     padding: 12px 20px;
@@ -42,5 +82,5 @@ button{
 }
 
 button:hover {
-    background-color: #1f2937;
+    background-color: var(--cor-primaria-hover);
 }
