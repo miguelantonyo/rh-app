@@ -99,6 +99,14 @@ def upload_pessoal(token):
         caminho = os.path.join(PASTA_UPLOADS, nome_seguro)
         arquivo.save(caminho)
 
+        documento_existente = Documento.query.filter_by(contratado_id=contratado.id, tipo=tipo_documento).first()
+
+        if documento_existente:
+            documento_existente.nome_arquivo = nome_seguro
+        else:
+            novo_documento = Documento(tipo=tipo_documento, nome_arquivo=nome_seguro, contratado_id=contratado.id)
+            db.session.add(novo_documento)
+
         novo_documento = Documento(tipo=tipo_documento, nome_arquivo=nome_seguro, contratado_id=contratado.id)
         db.session.add(novo_documento)
         db.session.commit()

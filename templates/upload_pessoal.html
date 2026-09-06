@@ -22,7 +22,7 @@
             {% endfor %}
         </ul>
         {% else %}
-            <p class="subtitulo"> 🎉 Todos os documentos foram enviados!</p>
+            <p class="subtitulo">Nenhum documento enviado ainda</p>
         {% endif %}
 
         <h3>Documentos Pendentes</h3>
@@ -42,7 +42,7 @@
     <form method="POST" enctype="multipart/form-data">
         <label>Tipo de documento:</label>
         <select name="tipo_documento">
-            {% for tipo in tipos %}
+            {% for tipo in pendentes %}
                 <option value="{{ tipo }}">{{ tipo }}</option>
             {% endfor %}
         </select>
