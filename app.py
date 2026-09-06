@@ -44,8 +44,8 @@ class Usuario(UserMixin, db.Model):
 def carregar_usuario(id_usuario):
     return Usuario.query.get(int(id_usuario))
 
-DOCUMENTOS_OBRIGATORIOS = ['RG', 'CPF', 'Comprovante de residencia', 'Título de Eleitor', 'PIS',
-                           'Conta Bancária', 'Reservista']
+DOCUMENTOS_OBRIGATORIOS = ['RG', 'CPF', 'Comprovante de residencia', 'Atestado de Antecedentes','Título de Eleitor',
+                           'PIS','Conta Bancária', 'Reservista']
 PASTA_UPLOADS = 'uploads'
 os.makedirs(PASTA_UPLOADS, exist_ok=True)
 
@@ -105,7 +105,16 @@ def upload_pessoal(token):
 
         return f'Documento "{tipo_documento}" enviado com sucesso, {contratado.nome}!'
 
-    return render_template('upload_pessoal.html', contratado=contratado, tipos=DOCUMENTOS_OBRIGATORIOS)
+    documentos_enviados = [doc.tipo for doc in contratado.documentos]
+    documentos_pendentes= [tipo for tipo in DOCUMENTOS_OBRIGATORIOS if tipo not in documentos_enviados]
+
+    return render_template(
+        'upload_pessoal.html',
+        contratado=contratado,
+        tipos=DOCUMENTOS_OBRIGATORIOS,
+        enviados=documentos_enviados,
+        pendentes=documentos_pendentes
+    )
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

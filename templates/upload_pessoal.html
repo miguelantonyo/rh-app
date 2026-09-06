@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload - {{ contratado.nome }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -10,6 +11,33 @@
     <div class="container">
     <h1>Olá {{ contratado.nome }}</h1>
     <p>Envie seus documentos abaixo para dar continuidade à sua admissão.</p>
+
+    <h3>Documentos enviados</h3>
+    {% if enviados %}
+        <ul style="list-style: none; padding: 0;">
+            {% for tipo in enviados %}
+            <li style="padding: 6px 0;">
+                <span class="badge" style="background-color: #d1fae5; color: #065f46;">✅ {{ tipo }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p class="subtitulo"> 🎉 Todos os documentos foram enviados!</p>
+        {% endif %}
+
+        <h3>Documentos Pendentes</h3>
+        {% if pendentes %}
+        <ul style="list-style: none; padding: 0;">
+            {% for tipo in pendentes %}
+            <li style="padding: 6px 0;">
+                <span class="badge" style="background-color: #fee2e2; color: #991b1b;"> ⏳{{ tipo }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p class="subtitulo"> 🎉 Todos os documentos foram enviados</p>
+        {% endif %}
+        <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--cinza-medio);">
 
     <form method="POST" enctype="multipart/form-data">
         <label>Tipo de documento:</label>

@@ -95,3 +95,19 @@ button:hover {
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     transform: translateY(-1px);
 }
+
+@media (max-width: 600px) {
+    body {
+        padding: 20px 12px;
+    }
+    .container {
+        padding: 20px;
+    }
+    .topo {
+        margin: -20px -12px 24px -12px;
+        font-size: 16px;
+    }
+    h1 {
+        font-size: 20px;
+    }
+}
