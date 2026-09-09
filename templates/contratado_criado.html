@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Contrato Cadastrado</title>
+    <link rel="stylsheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+   <div class="topo">📋Sistema RH - Documentos</div>
+   <div class="container">
+     <h1>✅ Contratado Cadastrado</h1>
+     <p class="subtitulo">Envie o link baixo para {{ nome }} concluir o envio dos documentos.</p>
+
+     <p style="word-break: break-all; background-color: var(--cinza-claro); padding: 12px; border-radius: 8px; font-size: 14px;">
+     {{ link }}
+     </p>
+
+     <a href="{{ url_for('contratados') }}">
+       <button type="button">Voltar para contratados</button>
+     </a>
+   </div>
+</body>
+</html>

@@ -15,9 +15,11 @@
   <ul style="list-style: none; padding: 0;">
     {% for pessoa in contratados %}
     <li style="padding: 12px 0; border-bottom: 1px solid var(--cinza-medio);">
-        <strong>{{ pessoa.nome}}</strong> - {{ pessoa.email }}
-        <br>
-        <span class="badge">{{ pessoa.documentos|length }} documento(s) enviado(s)</span>
+        <a href="{{ url_for('detalhes_contratado', id_contratado=pessoa.id) }}" style="text-decoration: none; color: var(--cor-texto);">
+            <strong>{{ pessoa.nome}}</strong> - {{ pessoa.email }}
+            <br>
+            <span class="badge">{{ pessoa.documentos|length }} documento(s) enviado(s)</span>
+        </a>
     </li>
     {% endfor %}
   </ul>

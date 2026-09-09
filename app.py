@@ -76,7 +76,7 @@ def cadastrar():
         db.session.add(novo_contratado)
         db.session.commit()
         link = f'htpp://127.0.0.1:5000/upload/{novo_contratado.token}'
-        return f'Contratado {nome} cadastrado! Link de acesso: {link}'
+        return render_template('contratado_criado.html', nome=nome, link=link)
     return render_template('cadastrar.html')
 
 @app.route('/contratados')
@@ -139,6 +139,28 @@ def login():
         return 'Email ou senha incorreto!'
 
     return render_template('login.html')
+
+@app.route('/contratado/<int:id_contratado>')
+@login_required
+def detalhes_contratado(id_contratado):
+    contratado = Contratado.query.get(id_contratado)
+
+    if contratado is None:
+        return 'Contratado não encontrado!', 404
+
+    documentos_enviados = [doc.tipo for doc in contratado.documentos]
+    documentos_pendentes = [tipo for tipo in DOCUMENTOS_OBRIGATORIOS if tipo not in documentos_enviados]
+    link_upload = f'htpp://127.0.0.1:5000/upload/{contratado.token}'
+
+    return render_template(
+        'detalhes_contratado.html',
+        contratado=contratado,
+        enviados= documentos_enviados,
+        pendentes=documentos_pendentes,
+        link=link_upload
+    )
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ contratado.nome }} - Detalhes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="topo">📋 Sistema RH - Documentos</div>
+    <div class="container">
+        <h1>{{ contratado.nome }}</h1>
+        <p class="subtitulo">{{ contratado.email }} </p>
+
+        <h3>Documentos enviados</h3>
+        {% if enviados %}
+            <ul style="list-style: none; padding: 0;">
+                {% for tipo in enviados %}
+                <li style="padding:6px 0;">
+                    <span class="badge" style="backgroun-color: #d1fae5; color: #065f46;">✅ {{ tipo }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="subtitulo">Nenhum documento enviado ainda.</p>
+        {% endif %}
+
+        <h3>Documentos Pendentes</h3>
+        {% if pendentes %}
+            <ul style="list-style: none; padding: 0;">
+                {% for pendente in pendentes %}
+                <li style="padding:6px 0;">
+                    <span class="badge" style="background-color: #fee2e2; color: #991b1b;">⏳ {{ pendentes }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+        <p class="subtitulo">🎉 Todos os documentos foram enviados!</p>
+        {% endif %}
+
+        <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--cinza-medio);">
+
+        <p class="subtitulo">Link de acesso para reenviar, se necessario:</p>
+        <p style="word-break: break-all; background-color: var(--cinza-claro); padding: 12px; border-radius: 8px; font-size: 14px;">
+            {{ link }}
+        </p>
+        <a href="{{ url_for('contratados') }}">
+            <button type="button">Voltar para Contratados</button>
+        </a>
+    </div>
+</body>
+</html>
