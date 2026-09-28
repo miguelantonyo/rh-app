@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rh.db'
@@ -107,8 +108,6 @@ def upload_pessoal(token):
             novo_documento = Documento(tipo=tipo_documento, nome_arquivo=nome_seguro, contratado_id=contratado.id)
             db.session.add(novo_documento)
 
-        novo_documento = Documento(tipo=tipo_documento, nome_arquivo=nome_seguro, contratado_id=contratado.id)
-        db.session.add(novo_documento)
         db.session.commit()
 
         return f'Documento "{tipo_documento}" enviado com sucesso, {contratado.nome}!'
@@ -148,8 +147,9 @@ def detalhes_contratado(id_contratado):
     if contratado is None:
         return 'Contratado não encontrado!', 404
 
-    documentos_enviados = [doc.tipo for doc in contratado.documentos]
-    documentos_pendentes = [tipo for tipo in DOCUMENTOS_OBRIGATORIOS if tipo not in documentos_enviados]
+    documentos_enviados = contratado.documentos
+    tipos_enviados = [doc.tipo for doc in contratado.documentos]
+    documentos_pendentes = [tipo for tipo in DOCUMENTOS_OBRIGATORIOS if tipo not in tipos_enviados]
     link_upload = f'htpp://127.0.0.1:5000/upload/{contratado.token}'
 
     return render_template(
@@ -160,7 +160,10 @@ def detalhes_contratado(id_contratado):
         link=link_upload
     )
 
-
+@app.route('/download/<nome_arquivo>')
+@login_required
+def download(nome_arquivo):
+    return send_from_directory(PASTA_UPLOADS, nome_arquivo, as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

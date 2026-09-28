@@ -8,7 +8,7 @@
     --cor-sucesso: #10b981;
     --cor-erro: #ef4444;
     --cor-borda: #9ca3af;
-    --cinza--claro: #f1f5f9;
+    --cinza-claro: #f1f5f9;
     --cinza-medio: #e2e8f0;
 }
 
@@ -31,7 +31,7 @@
 
 .badge {
     display: inline-block;
-    background-color: var(--cinza--claro);
+    background-color: var(--cinza-claro);
     color: var(--cor-texto-claro);
     padding: 4px 10px;
     border-radius: 999px;
