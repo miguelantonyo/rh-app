@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <div class="topo">
+        📋 Sistema RH — Documentos
+        <div class="nav-menu">
+        <a href="{{ url_for('contratados') }}">Contratados</a>
+        <a href="{{ url_for('cadastrar') }}">Cadastrar novo</a>
+        <a href="{{ url_for('logout') }}">Sair</a>
+        </div>
+    </div>
     <div class="container">
     <form method="POST">
         <label>Nome:</label>

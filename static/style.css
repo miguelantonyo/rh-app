@@ -111,3 +111,22 @@ button:hover {
         font-size: 20px;
     }
 }
+
+.nav-menu{
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.nav.menu a{
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.nav.menu a:hover{
+    opacity: 1;
+    text-decoration: underline;
+}

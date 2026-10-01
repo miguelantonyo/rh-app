@@ -160,6 +160,11 @@ def detalhes_contratado(id_contratado):
         link=link_upload
     )
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
 @app.route('/download/<nome_arquivo>')
 @login_required
 def download(nome_arquivo):

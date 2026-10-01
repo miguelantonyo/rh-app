@@ -7,10 +7,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="topo">📋 Sistema RH — Documentos</div>
-    <div class="container">
-    <h1>Contratados</h1>
-    <p class="subtitulo">Acompanhe quem já enviou os documentos</p>
+    <div class="topo">
+        📋 Sistema RH — Documentos
+        <div class="nav-menu">
+        <a href="{{ url_for('contratados') }}">Contratados</a>
+        <a href="{{ url_for('cadastrar') }}">Cadastrar novo</a>
+        <a href="{{ url_for('logout') }}">Sair</a>
+        </div>
+    </div>
 
   <ul style="list-style: none; padding: 0;">
     {% for pessoa in contratados %}
